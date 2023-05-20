@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block title %}
+All Groups
+{%  endblock %}
+
+
+{% block content %}
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout" style="max-width: 1500px;">
+    <aside class="bd-sidebar">
+        <div class="d-flex flex-column flex-shrink-0 p-3">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" style="background-color: #f37b09" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        Динамика
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-body-emphasis">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        Сезоны
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-body-emphasis">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        Профиль спроса
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div>
+        <div>
+            <div class="hero py-3 text-center text-lg-start">
+                <div class="container-xxl bd-gutter" style="max-width: 800px">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-md-12">
+                            <h1 class="f0 pb-4">Выберите параметры</h1>
+                            <form class="was-validated">
+                                <div class="row g-3">
+
+                                    <div class="col-sm-4">
+                                        <label for="direction" class="form-label">Направление рейса</label>
+                                        <input type="text" class="form-control" id="direction" required>
+                                        <div class="invalid-feedback">
+                                            Выберите направление
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="flight" class="form-label">Выбор рейса</label>
+                                        <input type="text" class="form-control" id="flight" required>
+                                        <div class="invalid-feedback">
+                                            Выберите рейс.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="flyclass" class="form-label">Класс</label>
+                                        <select class="form-select" id="flyclass" required="">
+                                            <option value=""></option>
+                                            <option>Первый</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Выберите класс.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="date" class="form-label">Выбор даты</label>
+                                        <input type="text" class="form-control" id="date" required>
+                                        <div class="invalid-feedback">
+                                            Выберите дату.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="datestart" class="form-label">Начало периода</label>
+                                        <input type="text" class="form-control" id="datestart" placeholder="Опционально">
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="dateend" class="form-label">Окончания периода</label>
+                                        <input type="text" class="form-control" id="dateend" placeholder="Опционально">
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <button class="btn btn-primary" type="submit">Continue to checkout</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-6 col-md-8" style="display: none">
+                            <h1 class="f0">Тут будет график</h1>
+                            <div>
+                                <canvas id="YourChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="hero py-5 text-center text-lg-start" style="display: none">
+                <div class="container-xxl bd-gutter" style="max-width: 1500px">
+                    <div class="bd-content ps-lg-2">
+
+
+                        <h2>Тут будут еще графики</h2>
+                        <p>Date: <input type="text" id="datepicker"></p>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+<!--Добавить запрос черер javascript что бы получать данные-->
+
+<!--Разобратся в этой либе-->
+  const ctx = document.getElementById('YourChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+
+
+
+
+</script>
+<script>
+   const ctx1 = document.getElementById('myChart');
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+
+
+</script>
+<script>
+  $( function() {
+    $( "#date" ).datepicker();
+  } );
+    $( function() {
+    $( "#datestart" ).datepicker();
+  } );
+    $( function() {
+    $( "#dateend" ).datepicker();
+  } );
+
+</script>
+{% endblock %}
