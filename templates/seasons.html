@@ -19,6 +19,11 @@
             <div class="col-6 col-md-4 text-start">
                 <h1 class="f1">Сезоны</h1>
                 <p class="mb-4 f3 font-weight-normal">Описание чего-нибудь</p>
+                <select>
+                    {% for i in directions %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-sm-6 col-md-8">
                 <div>
