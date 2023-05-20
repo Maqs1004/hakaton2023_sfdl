@@ -8,6 +8,18 @@ app = Flask(__name__)
 def main_page():
     return render_template('main.html')
 
+@app.route('/seasons')
+def seasons_page():
+    return render_template('seasons.html')
+
+@app.route('/dynamic')
+def dynamic_page():
+    return render_template('dynamic.html')
+
+@app.route('/profile')
+def profile_page():
+    return render_template('profile.html')
+
 
 
 if __name__ == "__main__":
