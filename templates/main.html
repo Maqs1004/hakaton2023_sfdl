@@ -13,11 +13,11 @@ SFDL
                     <div class="row g-0 text-center">
                         <div class="col-6 col-md-12">
                             <h1 class="f0 pb-4">Введите параметры</h1>
-                            <form class="was-validated">
+                            <form id="MainForm" class="was-validated">
                                 <div class="row g-3">
                                     <div class="col-sm-4">
                                         <label class="form-label" for="direction">Направление рейса</label>
-                                        <select class="form-select" id="direction" required="">
+                                        <select class="form-select" name="direction" id="direction" required="">
                                             <option value=""></option>
                                             {% for i in directions %}
                                             <option value="{{i}}">{{i}}</option>
@@ -29,7 +29,7 @@ SFDL
                                     </div>
                                     <div class="col-sm-4">
                                         <label class="form-label" for="flight">Выбор рейса</label>
-                                        <select class="form-select" id="flight" required="">
+                                        <select class="form-select" name="flight" id="flight" required="">
                                             <option value=""></option>
                                             {% for i in directions %}
                                             <option value="{{i}}">{{i}}</option>
@@ -41,7 +41,7 @@ SFDL
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="flyclass">Класс</label>
-                                        <select class="form-select" id="flyclass" required="">
+                                        <select class="form-select" name="class" id="flyclass" required="">
                                             <option value=""></option>
                                             <option>Первый</option>
                                         </select>
@@ -51,49 +51,50 @@ SFDL
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="date">Выбор даты</label>
-                                        <input class="form-control" id="date" required type="text">
+                                        <input class="form-control" name="choose_date" id="date" required type="text">
                                         <div class="invalid-feedback">
                                             Выберите дату
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="datestart">Начало периода</label>
-                                        <input class="form-control" id="datestart" placeholder="Опционально"
+                                        <input class="form-control" name="start" id="datestart" placeholder="Опционально"
                                                type="text">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="dateend">Окончание периода</label>
-                                        <input class="form-control" id="dateend" placeholder="Опционально" type="text">
+                                        <input class="form-control" name="finish" id="dateend" placeholder="Опционально" type="text">
 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" id="dynamics" type="checkbox">
+                                            <input class="form-check-input" name="dynamics" id="dynamics" type="checkbox">
                                             <label class="form-check-label" for="dynamics" style="color: black">Динамика
                                                 бронирования</label>
                                         </div>
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" id="seasons" type="checkbox">
+                                            <input class="form-check-input" name="seasons" id="seasons" type="checkbox">
                                             <label class="form-check-label" for="seasons"
                                                    style="color: black">Сезоны</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" id="profile_flight" type="checkbox">
+                                            <input class="form-check-input" name="profile_flight" id="profile_flight" type="checkbox">
                                             <label class="form-check-label" for="profile_flight" style="color: black">Профиль
                                                 спроса. Вылетевшие рейсы</label>
                                         </div>
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" id="profile_saled" type="checkbox">
+                                            <input class="form-check-input" name="profile_saled" id="profile_saled" type="checkbox">
                                             <label class="form-check-label" for="profile_saled" style="color: black">Профиль
                                                 спроса. Проданные рейсы</label>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
-                                <button class="btn btn-primary" type="submit">Continue to checkout</button>
                             </form>
+                                                            <button class="btn btn-primary" id="MainButton">Continue to checkout</button>
+
                         </div>
                         <div class="col-sm-6 col-md-8" style="display: none">
                             <h1 class="f0">Тут будет график</h1>
@@ -142,20 +143,6 @@ SFDL
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <script>
    const ctx1 = document.getElementById('myChart');
@@ -179,18 +166,6 @@ SFDL
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <script>
   $( function() {
@@ -203,14 +178,30 @@ SFDL
     $( "#dateend" ).datepicker();
   } );
 
+</script>
+<script>
+document.getElementById('MainButton').onclick = function () {
+    alert('done')
+    var data = new FormData(document.getElementById("MainForm"));
+    var jsonData = {};
+    data.forEach(function(value, key) {
+        jsonData[key] = value;
+        });
+    var jsonString = JSON.stringify(jsonData);
+    alert(jsonString)
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "/getdata", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onload = function () {
+        if (xmlhttp.status == 200) {
+        alert('ok')
+        }}
+    xmlhttp.send(jsonString);
+    }
 
 
-
-
-
-
-
-
+</script>
+<script>
 
 </script>
 {% endblock %}
