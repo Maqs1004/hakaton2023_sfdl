@@ -13,8 +13,34 @@ def main_page():
 
 @app.route('/getdata', methods=['POST'])
 def getdata():
-    print(request.get_json())
-    return jsonify({'data': 'OK'})
+    """Пример входящего JSON
+    {'direction': 'Москва - Сочи',
+     'flight': 'Москва - Сочи',
+     'class': 'Первый',
+     'choose_date': '05/10/2023',
+     'start': '',
+     'finish': '',
+     'dynamics': 'on',
+     'seasons': 'on',
+     'profile_flight': 'on',
+     'profile_saled': 'on'}"""
+
+    request_data: dict = request.get_json()
+    response_data = {}
+    profile_flight = bool(request_data.get('profile_flight'))
+    profile_saled = bool(request_data.get('profile_saled'))
+    seasons = bool(request_data.get('seasons'))
+    dynamics = bool(request_data.get('dynamics'))
+    if profile_flight:
+        response_data['profile_flight_block'] = queries.get_profile_flight(request_data)
+    if profile_saled:
+        response_data['profile_saled_block'] = queries.get_profile_saled(request_data)
+    if seasons:
+        response_data['seasons_block'] = queries.get_seasons(request_data)
+    if dynamics:
+        response_data['dynamics_block'] = queries.get_dynamics(request_data)
+    print(response_data)
+    return jsonify(response_data)
 
 
 if __name__ == "__main__":

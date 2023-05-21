@@ -58,17 +58,20 @@ SFDL
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="datestart">Начало периода</label>
-                                        <input class="form-control" name="start" id="datestart" placeholder="Опционально"
+                                        <input class="form-control" name="start" id="datestart"
+                                               placeholder="Опционально"
                                                type="text">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="dateend">Окончание периода</label>
-                                        <input class="form-control" name="finish" id="dateend" placeholder="Опционально" type="text">
+                                        <input class="form-control" name="finish" id="dateend" placeholder="Опционально"
+                                               type="text">
 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" name="dynamics" id="dynamics" type="checkbox">
+                                            <input class="form-check-input" name="dynamics" id="dynamics"
+                                                   type="checkbox">
                                             <label class="form-check-label" for="dynamics" style="color: black">Динамика
                                                 бронирования</label>
                                         </div>
@@ -80,12 +83,14 @@ SFDL
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" name="profile_flight" id="profile_flight" type="checkbox">
+                                            <input class="form-check-input" name="profile_flight" id="profile_flight"
+                                                   type="checkbox">
                                             <label class="form-check-label" for="profile_flight" style="color: black">Профиль
                                                 спроса. Вылетевшие рейсы</label>
                                         </div>
                                         <div class="form-check text-start">
-                                            <input class="form-check-input" name="profile_saled" id="profile_saled" type="checkbox">
+                                            <input class="form-check-input" name="profile_saled" id="profile_saled"
+                                                   type="checkbox">
                                             <label class="form-check-label" for="profile_saled" style="color: black">Профиль
                                                 спроса. Проданные рейсы</label>
                                         </div>
@@ -93,23 +98,30 @@ SFDL
                                 </div>
                                 <br>
                             </form>
-                                                            <button class="btn btn-primary" id="MainButton">Continue to checkout</button>
+                            <button class="btn btn-primary" id="MainButton" disabled>Получить данные
+                            </button>
 
-                        </div>
-                        <div class="col-sm-6 col-md-8" style="display: none">
-                            <h1 class="f0">Тут будет график</h1>
-                            <div>
-                                <canvas id="YourChart"></canvas>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="hero py-5 text-center text-lg-start" style="display: none">
-                <div class="container-xxl bd-gutter" style="max-width: 1500px">
-                    <div class="bd-content ps-lg-2">
-                        <h2>Тут будут еще графики</h2>
-                        <p>Date: <input id="datepicker" type="text"></p>
+            <div class="py-5 text-center text-lg-start">
+                <div class="container-xxl bd-gutter">
+                    <div id="profile_flight_block" style="display: none" class="bd-content ps-lg-2 py-6">
+                        <h2 class="text-center">Профиль спроса. Вылетевшие рейсы</h2>
+                        <canvas id="profile_flight_table"></canvas>
+                    </div>
+                    <div id="profile_saled_block" style="display: none" class="bd-content ps-lg-2 py-6">
+                        <h2 class="text-center">Профиль спроса. Проданные рейсы</h2>
+                        <canvas id="profile_saled_table"></canvas>
+                    </div>
+                    <div id="seasons_block" style="display: none" class="bd-content ps-lg-2 py-6">
+                        <h2 class="text-center">Сезоны</h2>
+                        <canvas id="seasons_table"></canvas>
+                    </div>
+                    <div id="dynamics_block" style="display: none" class="bd-content ps-lg-2 py-6">
+                        <h2 class="text-center"> Динамика бронирования </h2>
+                        <canvas id="dynamics_table"></canvas>
                     </div>
                 </div>
             </div>
@@ -118,55 +130,6 @@ SFDL
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-<!--Добавить запрос черер javascript что бы получать данные-->
-
-<!--Разобратся в этой либе-->
-  const ctx = document.getElementById('YourChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
-</script>
-<script>
-   const ctx1 = document.getElementById('myChart');
-
-  new Chart(ctx1, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
-</script>
 <script>
   $( function() {
     $( "#date" ).datepicker();
@@ -178,30 +141,72 @@ SFDL
     $( "#dateend" ).datepicker();
   } );
 
+
+
 </script>
 <script>
 document.getElementById('MainButton').onclick = function () {
-    alert('done')
+    document.getElementById('profile_flight_block').style.display = "none"
+    document.getElementById('profile_saled_block').style.display = "none"
+    document.getElementById('seasons_block').style.display = "none"
+    document.getElementById('dynamics_block').style.display = "none"
     var data = new FormData(document.getElementById("MainForm"));
     var jsonData = {};
     data.forEach(function(value, key) {
         jsonData[key] = value;
         });
     var jsonString = JSON.stringify(jsonData);
-    alert(jsonString)
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "/getdata", true);
+    xmlhttp.responseType = 'json';
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onload = function () {
         if (xmlhttp.status == 200) {
-        alert('ok')
-        }}
+        var val = Object.values(xmlhttp.response);
+            val.forEach(function(value) {
+            eval(value);
+      });
+      var keys = Object.keys(xmlhttp.response);
+            keys.forEach(function(key) {
+            document.getElementById(key).style.display = "block";
+      });
+        }
+        }
     xmlhttp.send(jsonString);
     }
 
 
 </script>
 <script>
+function checkFields() {
+  var direction = document.getElementById('direction').value.trim();
+  var maindate = document.getElementById('date').value.trim();
+  var flight = document.getElementById('flight').value.trim();
+  var flyclass = document.getElementById('flyclass').value.trim();
+  var profileFlight = document.getElementById('profile_flight').checked;
+  var profileSaled = document.getElementById('profile_saled').checked;
+  var seasons = document.getElementById('seasons').checked;
+  var dynamics = document.getElementById('dynamics').checked;
+  var fieldsFilled = direction !== '' && flight !== '' && flyclass !== '' && maindate !== '';
+  var profileSelected = profileFlight || profileSaled || seasons || dynamics;
+
+  if (fieldsFilled && profileSelected) {
+    document.getElementById('MainButton').disabled = false;
+  } else {
+    document.getElementById('MainButton').disabled = true;
+  }
+}
+
+// Добавление обработчиков событий на поля для проверки значений при изменении
+document.getElementById('date').addEventListener('input', checkFields);
+document.getElementById('direction').addEventListener('input', checkFields);
+document.getElementById('flight').addEventListener('input', checkFields);
+document.getElementById('flyclass').addEventListener('input', checkFields);
+document.getElementById('profile_flight').addEventListener('change', checkFields);
+document.getElementById('profile_saled').addEventListener('change', checkFields);
+document.getElementById('seasons').addEventListener('change', checkFields);
+document.getElementById('dynamics').addEventListener('change', checkFields);
 
 </script>
+
 {% endblock %}
