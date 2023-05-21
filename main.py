@@ -6,24 +6,13 @@ app = Flask(__name__)
 
 
 
-@app.route('/main')
-def main_page():
-    return render_template('dynamics.html')
 
-# @app.route('/seasons')
-# def seasons_page():
-#     directions = queries.direction_list()
-#     return render_template('seasons.html', directions=directions)
-#
-# @app.route('/dynamic')
-# def dynamic_page():
-#     directions = queries.direction_list()
-#     return render_template('dynamic.html', directions=directions)
-#
-# @app.route('/profile')
-# def profile_page():
-#     directions = queries.direction_list()
-#     return render_template('profile.html', directions=directions)
+@app.route('/')
+def main_page():
+    directions = queries.direction_list()
+    return render_template('main.html', directions=directions)
+
+
 
 
 
