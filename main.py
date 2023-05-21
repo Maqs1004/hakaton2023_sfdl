@@ -1,19 +1,14 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template
+
 import queries
 
-
 app = Flask(__name__)
-
-
 
 
 @app.route('/')
 def main_page():
     directions = queries.direction_list()
     return render_template('main.html', directions=directions)
-
-
-
 
 
 if __name__ == "__main__":

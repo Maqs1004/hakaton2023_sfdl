@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-All Groups
+SFDL
 {%  endblock %}
 
 
@@ -17,10 +17,12 @@ All Groups
                                 <div class="row g-3">
 
                                     <div class="col-sm-4">
-                                        <label for="direction" class="form-label">Направление рейса</label>
+                                        <label class="form-label" for="direction">Направление рейса</label>
                                         <select class="form-select" id="direction" required="">
                                             <option value=""></option>
-                                            <option>Москва - Сочи</option>
+                                            {% for i in directions %}
+                                            <option value="{{i}}">{{i}}</option>
+                                            {% endfor %}
                                         </select>
                                         <div class="invalid-feedback">
                                             Выберите направление
@@ -28,10 +30,12 @@ All Groups
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <label for="flight" class="form-label">Выбор рейса</label>
+                                        <label class="form-label" for="flight">Выбор рейса</label>
                                         <select class="form-select" id="flight" required="">
-                                            <option value=""></option>
-                                            <option>Москва - Сочи</option>
+                                            <option value=""> </option>
+                                            {% for i in directions %}
+                                            <option value="{{i}}">{{i}}</option>
+                                            {% endfor %}
                                         </select>
                                         <div class="invalid-feedback">
                                             Выберите рейс
@@ -39,7 +43,7 @@ All Groups
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="flyclass" class="form-label">Класс</label>
+                                        <label class="form-label" for="flyclass">Класс</label>
                                         <select class="form-select" id="flyclass" required="">
                                             <option value=""></option>
                                             <option>Первый</option>
@@ -50,43 +54,47 @@ All Groups
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="date" class="form-label">Выбор даты</label>
-                                        <input type="text" class="form-control" id="date" required>
+                                        <label class="form-label" for="date">Выбор даты</label>
+                                        <input class="form-control" id="date" required type="text">
                                         <div class="invalid-feedback">
                                             Выберите дату
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="datestart" class="form-label">Начало периода</label>
-                                        <input type="text" class="form-control" id="datestart"
-                                               placeholder="Опционально">
+                                        <label class="form-label" for="datestart">Начало периода</label>
+                                        <input class="form-control" id="datestart" placeholder="Опционально"
+                                               type="text">
 
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="dateend" class="form-label">Окончание периода</label>
-                                        <input type="text" class="form-control" id="dateend" placeholder="Опционально">
+                                        <label class="form-label" for="dateend">Окончание периода</label>
+                                        <input class="form-control" id="dateend" placeholder="Опционально" type="text">
 
                                     </div>
                                     <div class="form-check text-start">
-                                        <input type="checkbox" class="form-check-input" id="same-address">
-                                        <label class="form-check-label" style="color: black" for="same-address">Чек один</label>
+                                        <input class="form-check-input" id="same-address" type="checkbox">
+                                        <label class="form-check-label" for="same-address" style="color: black">Чек
+                                            один</label>
                                     </div>
                                     <div class="form-check text-start">
-<!--                                        Изменить ID-->
-                                        <input type="checkbox" class="form-check-input" id="same-address">
-                                        <label class="form-check-label" style="color: black" for="same-address">Чек два</label>
+                                        <!--                                        Изменить ID-->
+                                        <input class="form-check-input" id="same-address" type="checkbox">
+                                        <label class="form-check-label" for="same-address" style="color: black">Чек
+                                            два</label>
                                     </div>
                                     <div class="form-check text-start">
-<!--                                        Изменить ID-->
-                                        <input type="checkbox" class="form-check-input" id="same-address">
-                                        <label class="form-check-label" style="color: black" for="same-address">Чек три</label>
+                                        <!--                                        Изменить ID-->
+                                        <input class="form-check-input" id="same-address" type="checkbox">
+                                        <label class="form-check-label" for="same-address" style="color: black">Чек
+                                            три</label>
                                     </div>
                                     <div class="form-check text-start">
-<!--                                        Изменить ID-->
-                                        <input type="checkbox" class="form-check-input" id="same-address">
-                                        <label class="form-check-label" style="color: black" for="same-address">Чек четыри</label>
+                                        <!--                                        Изменить ID-->
+                                        <input class="form-check-input" id="same-address" type="checkbox">
+                                        <label class="form-check-label" for="same-address" style="color: black">Чек
+                                            четыри</label>
                                     </div>
 
 
@@ -112,7 +120,7 @@ All Groups
 
 
                         <h2>Тут будут еще графики</h2>
-                        <p>Date: <input type="text" id="datepicker"></p>
+                        <p>Date: <input id="datepicker" type="text"></p>
 
 
                     </div>
@@ -156,6 +164,7 @@ All Groups
 
 
 
+
 </script>
 <script>
    const ctx1 = document.getElementById('myChart');
@@ -184,6 +193,7 @@ All Groups
 
 
 
+
 </script>
 <script>
   $( function() {
@@ -195,6 +205,7 @@ All Groups
     $( function() {
     $( "#dateend" ).datepicker();
   } );
+
 
 
 
