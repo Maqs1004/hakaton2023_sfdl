@@ -26,6 +26,7 @@ def getdata():
      'profile_saled': 'on'}"""
 
     request_data: dict = request.get_json()
+    print(request_data)
     response_data = {}
     profile_flight = bool(request_data.get('profile_flight'))
     profile_saled = bool(request_data.get('profile_saled'))
@@ -39,10 +40,10 @@ def getdata():
         response_data['seasons_block'] = queries.get_seasons(request_data)
     if dynamics:
         response_data['dynamics_block'] = queries.get_dynamics(request_data)
-    print(response_data)
     return jsonify(response_data)
 
 
 if __name__ == "__main__":
     # Only for debugging while developing
     app.run(host="0.0.0.0", port=80, debug=True)
+
