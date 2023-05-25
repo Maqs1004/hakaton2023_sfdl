@@ -1,3 +1,5 @@
+# импорт файла с методами Влада и Софы
+
 def options(color_label='black',
             size_label='18',
             y_ticks_color='black',
@@ -61,6 +63,7 @@ def direction_list():
     запрос списка доступных направлений
     :return: список
     """
+    # Данные лучше всего поместить в БД
     return {'SVO-AER': [1116,
                         1118,
                         1120,
@@ -129,55 +132,11 @@ def direction_list():
                         6186],
             'SVO-ASF': [1172, 1174, 1642],
             'ASF-SVO': [1173, 1175, 1643, 1775]}
-    м
 
 
-def get_profile_flight(query):
-    # Тестовые данные
-    labels_bar = "['Africa', 'Asia', 'Europe', 'Latin America', 'North America']"
-    data = "[2478, 5267, 734, 784, 433]"
-
-    # Тут делаем запрос в метод , который сделает Влад с Софьей
-
-    # Полученные данные передаем для построения графика
-    data = bar(labels_bar, data, "profile_flight_table")
-    return data
-
-
-def get_profile_saled(query):
-    # Тестовые данные
-    labels_bar = "['Africa', 'Asia', 'Europe', 'Latin America', 'North America']"
-    data = "[2478, 5267, 734, 784, 433]"
-
-    # Тут делаем запрос в метод , который сделает Влад с Софьей
-
-    # Полученные данные передаем для построения графика
-    data = bar(labels_bar, data, "profile_saled_table")
-    return data
-
-
-def get_seasons(query):
-    # Тестовые данные
-    labels_bar = "['Africa', 'Asia', 'Europe', 'Latin America', 'North America']"
-    data = "[2478, 5267, 734, 784, 433]"
-
-    # Тут делаем запрос в метод , который сделает Влад с Софьей
-
-    # Полученные данные передаем для построения графика
-    data = bar(labels_bar, data, "seasons_table")
-    return data
-
-
-def get_dynamics(query):
-    # Тестовые данные
-    labels_bar = "['Africa', 'Asia', 'Europe', 'Latin America', 'North America']"
-    data = "[2478, 5267, 734, 784, 433]"
-
-    # Тут делаем запрос в метод , который сделает Влад с Софьей
-
-    # Полученные данные передаем для построения графика
-    data = bar(labels_bar, data, "dynamics_table")
-    return data
+def price_classes():
+    return ['B', 'C', 'D', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'T', 'U', 'V', 'X', 'Y',
+            'Z']
 
 
 def line_bar(labels_bar, data_bar, lables_line, data_line, element_id):
@@ -230,16 +189,23 @@ def bar(labels_bar, data, element_id):
     Строка с JavaScript-кодом для создания столбчатой диаграммы с использованием библиотеки Chart.js.
     """
 
-    return "const myBarChart =  new Chart(document.getElementById('" + element_id + "').getContext('2d'), {\
-        type: 'bar',\
-        data: {\
-            labels: " + labels_bar + ",\
-            datasets: [\
-                {\
-                    label: 'Population (millions)',\
-                    backgroundColor: ['#3e95cd', '#8e5ea2', '#3cba9f', '#e8c3b9', '#c45850'],\
-                    data: " + data + "\
-                }\
-            ]\
-        },\
-        " + options() + ");"
+    return "var " + element_id + " = document.getElementById('" + element_id + "').getContext('2d'); \
+            console.log(); \
+            let myBarChart = Chart.getChart('" + element_id + "');\
+            console.log(myBarChart); \
+            if (myBarChart != undefined) {\
+              myBarChart.destroy();\
+            };\
+            myBarChart =  new Chart(" + element_id + ", {\
+            type: 'line',\
+            data: {\
+                labels: " + labels_bar + ",\
+                datasets: [\
+                    {\
+                        label: 'Population (millions)',\
+                        backgroundColor: ['#3e95cd', '#8e5ea2', '#3cba9f', '#e8c3b9', '#c45850'],\
+                        data: " + data + "\
+                    }\
+                ]\
+            },\
+            " + options() + ");"

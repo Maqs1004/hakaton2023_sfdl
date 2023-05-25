@@ -32,8 +32,8 @@ SFDL
                                     <div class="col-sm-4">
                                         <label class="form-label" for="flight">Выбор рейса</label>
                                         <select class="form-select" id="flight" name="flight" required="">
-                                            <option value=""></option>
                                             {% for key, value in directions.items() %}
+                                            <option data-option="{{key}}" value=""></option>
                                             {% for i in value %}
                                             <option data-option="{{key}}" value="{{i}}">{{i}}</option>
                                             {% endfor %}
@@ -47,7 +47,9 @@ SFDL
                                         <label class="form-label" for="flyclass">Класс</label>
                                         <select class="form-select" id="flyclass" name="class" required="">
                                             <option value=""></option>
-                                            <option>Первый</option>
+                                            {% for key in price_classes %}
+                                            <option value="{{key}}">{{key}}</option>
+                                            {% endfor %}
                                         </select>
                                         <div class="invalid-feedback">
                                             Выберите класс
@@ -145,6 +147,7 @@ SFDL
   } );
 
 
+
 </script>
 <script>
 document.getElementById('MainButton').onclick = function () {
@@ -152,6 +155,7 @@ document.getElementById('MainButton').onclick = function () {
     document.getElementById('profile_saled_block').style.display = "none"
     document.getElementById('seasons_block').style.display = "none"
     document.getElementById('dynamics_block').style.display = "none"
+
     var data = new FormData(document.getElementById("MainForm"));
     var jsonData = {};
     data.forEach(function(value, key) {
@@ -176,6 +180,7 @@ document.getElementById('MainButton').onclick = function () {
         }
     xmlhttp.send(jsonString);
     }
+
 
 
 </script>
@@ -210,6 +215,7 @@ document.getElementById('seasons').addEventListener('change', checkFields);
 document.getElementById('dynamics').addEventListener('change', checkFields);
 
 
+
 </script>
 <script>
 var direction = document.querySelector('#direction');
@@ -226,6 +232,7 @@ function giveSelection(selValue) {
 }
 
 giveSelection(direction.value);
+
 
 
 </script>
